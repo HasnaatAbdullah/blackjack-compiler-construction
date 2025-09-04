@@ -1,0 +1,272 @@
+function Hand.new 0
+    push constant 3
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 52
+    call Array.new 1
+    pop this 0
+    push constant 0
+    pop this 1
+    push argument 0
+    pop this 2
+    push pointer 0
+    return
+function Hand.addCard 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push this 0
+    add
+    push argument 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 1
+    push constant 1
+    add
+    pop this 1
+    push constant 0
+    return
+function Hand.getCard 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    return
+function Hand.getSum 3
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push constant 0
+    pop local 1
+label Hand_0
+    push local 0
+    push this 1
+    lt
+    not
+    if-goto Hand_1
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 2
+    push local 2
+    call Card.isOrdinary 1
+    not
+    if-goto Hand_3
+    push local 1
+    push local 2
+    call Card.getRank 1
+    add
+    pop local 1
+    goto Hand_2
+label Hand_3
+label Hand_2
+    push local 2
+    call Card.isKing 1
+    push local 2
+    call Card.isQueen 1
+    or
+    push local 2
+    call Card.isJoker 1
+    or
+    not
+    if-goto Hand_5
+    push local 1
+    push constant 10
+    add
+    pop local 1
+    goto Hand_4
+label Hand_5
+label Hand_4
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Hand_0
+label Hand_1
+    push constant 0
+    pop local 0
+label Hand_6
+    push local 0
+    push this 1
+    lt
+    not
+    if-goto Hand_7
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 2
+    push local 2
+    call Card.isAce 1
+    not
+    if-goto Hand_9
+    push local 1
+    push constant 10
+    gt
+    not
+    if-goto Hand_11
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    goto Hand_10
+label Hand_11
+    push local 1
+    push constant 11
+    add
+    pop local 1
+label Hand_10
+    goto Hand_8
+label Hand_9
+label Hand_8
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Hand_6
+label Hand_7
+    push local 1
+    return
+function Hand.isBlackjack 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Hand.getSum 1
+    push constant 21
+    eq
+    push this 1
+    and
+    push constant 2
+    eq
+    not
+    if-goto Hand_13
+    push constant 1
+    neg
+    return
+    goto Hand_12
+label Hand_13
+label Hand_12
+    push constant 0
+    return
+function Hand.reset 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop this 1
+    push constant 0
+    return
+function Hand.draw 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    push argument 1
+    push constant 1
+    neg
+    call Hand.drawOrClear 3
+    pop temp 0
+    push constant 0
+    return
+function Hand.clearDrawing 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    push argument 1
+    push constant 0
+    call Hand.drawOrClear 3
+    pop temp 0
+    push constant 0
+    return
+function Hand.drawOrClear 5
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push constant 0
+    pop local 2
+    push constant 0
+    pop local 3
+label Hand_14
+    push local 0
+    push this 1
+    lt
+    not
+    if-goto Hand_15
+    push argument 1
+    push local 2
+    add
+    push constant 32
+    push local 3
+    call Math.multiply 2
+    call Card.getHeightPx 0
+    push constant 10
+    add
+    call Math.multiply 2
+    add
+    pop local 1
+    push argument 2
+    not
+    if-goto Hand_17
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 4
+    push local 4
+    push local 1
+    call Card.draw 2
+    pop temp 0
+    goto Hand_16
+label Hand_17
+    push local 1
+    call DrawingHelpers.clearCardDrawing 1
+    pop temp 0
+label Hand_16
+    push local 2
+    call Card.getWidthCol 0
+    add
+    push constant 1
+    add
+    pop local 2
+    push local 2
+    push this 2
+    gt
+    not
+    if-goto Hand_19
+    push constant 0
+    pop local 2
+    push local 3
+    push constant 1
+    add
+    pop local 3
+    goto Hand_18
+label Hand_19
+label Hand_18
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Hand_14
+label Hand_15
+    push constant 0
+    return
+function Hand.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

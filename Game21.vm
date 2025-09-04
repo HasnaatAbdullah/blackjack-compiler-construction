@@ -1,0 +1,440 @@
+function Game21.new 0
+    push constant 9
+    call Memory.alloc 1
+    pop pointer 0
+    call CardDeck.new 0
+    pop this 0
+    push constant 22
+    call Hand.new 1
+    pop this 1
+    push constant 22
+    call Hand.new 1
+    pop this 2
+    push constant 32
+    push constant 95
+    call Math.multiply 2
+    push constant 2
+    add
+    pop this 5
+    push constant 32
+    push constant 15
+    call Math.multiply 2
+    push constant 6
+    add
+    pop this 3
+    push constant 32
+    push constant 180
+    call Math.multiply 2
+    push constant 6
+    add
+    pop this 4
+    push constant 32
+    push constant 120
+    call Math.multiply 2
+    push constant 10
+    add
+    pop this 7
+    push this 7
+    push constant 32
+    push constant 20
+    call Math.multiply 2
+    sub
+    pop this 8
+    push pointer 0
+    return
+function Game21.run 1
+    push argument 0
+    pop pointer 0
+    push this 8
+    call DrawingHelpers.drawBlackjack 1
+    pop temp 0
+    push this 7
+    call Game21.drawPressAnyKeyToStartTheGame 1
+    pop local 0
+    push this 8
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+label Game21_0
+    push constant 1
+    push constant 1
+    eq
+    not
+    if-goto Game21_1
+    push pointer 0
+    push local 0
+    call Game21.runSession 2
+    pop temp 0
+    push constant 1000
+    call Sys.wait 1
+    pop temp 0
+    push local 0
+    push constant 3000
+    call Random.mod 2
+    push this 7
+    push constant 32
+    push constant 25
+    call Math.multiply 2
+    add
+    call Game21.drawPressAnyKeyToStartTheGame 1
+    add
+    pop local 0
+    goto Game21_0
+label Game21_1
+    push constant 0
+    return
+function Game21.drawPressAnyKeyToStartTheGame 2
+    push constant 0
+    pop local 1
+    push argument 0
+    call DrawingHelpers.drawGamePressAnyKey 1
+    pop temp 0
+label Game21_2
+    push local 0
+    push constant 0
+    eq
+    not
+    if-goto Game21_3
+    call Keyboard.keyPressed 0
+    pop local 0
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    push local 1
+    push constant 10000
+    gt
+    not
+    if-goto Game21_5
+    push constant 0
+    pop local 1
+    goto Game21_4
+label Game21_5
+label Game21_4
+    goto Game21_2
+label Game21_3
+    push local 1
+    push local 0
+    add
+    pop local 1
+    push argument 0
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push local 1
+    return
+function Game21.runSession 7
+    push argument 0
+    pop pointer 0
+    push this 0
+    call CardDeck.reset 1
+    pop temp 0
+    push this 1
+    push this 4
+    call Hand.clearDrawing 2
+    pop temp 0
+    push this 1
+    call Hand.reset 1
+    pop temp 0
+    push this 2
+    push this 3
+    call Hand.clearDrawing 2
+    pop temp 0
+    push this 2
+    call Hand.reset 1
+    pop temp 0
+    push this 7
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push this 8
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push this 0
+    push argument 1
+    call CardDeck.shuffle 2
+    pop temp 0
+    push this 2
+    push this 0
+    push constant 1
+    neg
+    call CardDeck.getNext 2
+    call Hand.addCard 2
+    pop temp 0
+    push this 2
+    push this 0
+    push constant 0
+    call CardDeck.getNext 2
+    call Hand.addCard 2
+    pop temp 0
+    push this 1
+    push this 0
+    push constant 1
+    neg
+    call CardDeck.getNext 2
+    call Hand.addCard 2
+    pop temp 0
+    push this 1
+    push this 0
+    push constant 1
+    neg
+    call CardDeck.getNext 2
+    call Hand.addCard 2
+    pop temp 0
+    push this 5
+    call DrawingHelpers.drawCardDeckBack 1
+    pop temp 0
+    push this 2
+    push this 3
+    call Hand.draw 2
+    pop temp 0
+    push this 1
+    push this 4
+    call Hand.draw 2
+    pop temp 0
+    push this 1
+    call Hand.isBlackjack 1
+    not
+    if-goto Game21_7
+    push this 8
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push this 7
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push this 8
+    call DrawingHelpers.drawBlackjack 1
+    pop temp 0
+    push this 7
+    call DrawingHelpers.drawGameWon 1
+    pop temp 0
+    push constant 0
+    return
+    goto Game21_6
+label Game21_7
+label Game21_6
+    push constant 0
+    pop local 5
+    push this 8
+    call DrawingHelpers.drawGameYourMove 1
+    pop temp 0
+    push this 7
+    call DrawingHelpers.drawGameStangOrTake 1
+    pop temp 0
+label Game21_8
+    push local 5
+    not
+    not
+    if-goto Game21_9
+    call Keyboard.keyPressed 0
+    pop local 6
+label Game21_10
+    push local 6
+    push constant 0
+    eq
+    not
+    if-goto Game21_11
+    call Keyboard.keyPressed 0
+    pop local 6
+    goto Game21_10
+label Game21_11
+    push local 6
+    push constant 116
+    eq
+    push local 6
+    push constant 84
+    eq
+    or
+    not
+    if-goto Game21_13
+    push this 1
+    push this 0
+    push constant 1
+    neg
+    call CardDeck.getNext 2
+    call Hand.addCard 2
+    pop temp 0
+    push this 1
+    push this 4
+    call Hand.draw 2
+    pop temp 0
+    push constant 1000
+    call Sys.wait 1
+    pop temp 0
+    push this 1
+    call Hand.getSum 1
+    push constant 21
+    gt
+    not
+    if-goto Game21_15
+    push this 8
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push this 7
+    call DrawingHelpers.drawGameOver 1
+    pop temp 0
+    push constant 0
+    return
+    goto Game21_14
+label Game21_15
+label Game21_14
+    goto Game21_12
+label Game21_13
+label Game21_12
+    push local 6
+    push constant 115
+    eq
+    push local 6
+    push constant 83
+    eq
+    or
+    not
+    if-goto Game21_17
+    push constant 1
+    neg
+    pop local 5
+    goto Game21_16
+label Game21_17
+label Game21_16
+    goto Game21_8
+label Game21_9
+    push this 8
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push this 7
+    call DrawingHelpers.clearGameMessage 1
+    pop temp 0
+    push this 2
+    push constant 1
+    call Hand.getCard 2
+    pop local 2
+    push local 2
+    push constant 1
+    call Card.setIsOpen 2
+    pop temp 0
+    push this 2
+    push this 3
+    call Hand.draw 2
+    pop temp 0
+    push constant 1000
+    call Sys.wait 1
+    pop temp 0
+    push constant 0
+    pop local 5
+label Game21_18
+    push local 5
+    not
+    not
+    if-goto Game21_19
+    push this 2
+    call Hand.getSum 1
+    push constant 17
+    lt
+    not
+    if-goto Game21_21
+    push this 2
+    push this 0
+    push constant 1
+    neg
+    call CardDeck.getNext 2
+    call Hand.addCard 2
+    pop temp 0
+    push this 2
+    push this 3
+    call Hand.draw 2
+    pop temp 0
+    push constant 1000
+    call Sys.wait 1
+    pop temp 0
+    goto Game21_20
+label Game21_21
+    push this 2
+    call Hand.getSum 1
+    push this 1
+    call Hand.getSum 1
+    lt
+    not
+    if-goto Game21_23
+    push this 2
+    push this 0
+    push constant 1
+    neg
+    call CardDeck.getNext 2
+    call Hand.addCard 2
+    pop temp 0
+    push this 2
+    push this 3
+    call Hand.draw 2
+    pop temp 0
+    push constant 1000
+    call Sys.wait 1
+    pop temp 0
+    goto Game21_22
+label Game21_23
+    push constant 1
+    neg
+    pop local 5
+label Game21_22
+label Game21_20
+    goto Game21_18
+label Game21_19
+    push this 2
+    call Hand.getSum 1
+    push constant 21
+    gt
+    not
+    if-goto Game21_25
+    push this 7
+    call DrawingHelpers.drawGameWon 1
+    pop temp 0
+    push constant 0
+    return
+    goto Game21_24
+label Game21_25
+label Game21_24
+    push this 2
+    call Hand.getSum 1
+    push this 1
+    call Hand.getSum 1
+    gt
+    not
+    if-goto Game21_27
+    push this 7
+    call DrawingHelpers.drawGameOver 1
+    pop temp 0
+    push constant 0
+    return
+    goto Game21_26
+label Game21_27
+label Game21_26
+    push this 2
+    call Hand.getSum 1
+    push this 1
+    call Hand.getSum 1
+    eq
+    not
+    if-goto Game21_29
+    push this 7
+    call DrawingHelpers.drawGameTie 1
+    pop temp 0
+    push constant 0
+    return
+    goto Game21_28
+label Game21_29
+label Game21_28
+    push constant 0
+    return
+function Game21.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call CardDeck.dispose 1
+    pop temp 0
+    push this 1
+    call Hand.dispose 1
+    pop temp 0
+    push this 2
+    call Hand.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

@@ -1,0 +1,394 @@
+function Card.new 0
+    push constant 3
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push constant 0
+    pop this 2
+    push pointer 0
+    return
+function Card.getRank 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Card.isAce 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 14
+    eq
+    not
+    if-goto Card_1
+    push constant 1
+    neg
+    return
+    goto Card_0
+label Card_1
+label Card_0
+    push constant 0
+    return
+function Card.isKing 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 13
+    eq
+    not
+    if-goto Card_3
+    push constant 1
+    neg
+    return
+    goto Card_2
+label Card_3
+label Card_2
+    push constant 0
+    return
+function Card.isQueen 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 12
+    eq
+    not
+    if-goto Card_5
+    push constant 1
+    neg
+    return
+    goto Card_4
+label Card_5
+label Card_4
+    push constant 0
+    return
+function Card.isJoker 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 11
+    eq
+    not
+    if-goto Card_7
+    push constant 1
+    neg
+    return
+    goto Card_6
+label Card_7
+label Card_6
+    push constant 0
+    return
+function Card.isOrdinary 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Card.isAce 1
+    not
+    if-goto Card_9
+    push constant 0
+    return
+    goto Card_8
+label Card_9
+label Card_8
+    push pointer 0
+    call Card.isKing 1
+    not
+    if-goto Card_11
+    push constant 0
+    return
+    goto Card_10
+label Card_11
+label Card_10
+    push pointer 0
+    call Card.isQueen 1
+    not
+    if-goto Card_13
+    push constant 0
+    return
+    goto Card_12
+label Card_13
+label Card_12
+    push pointer 0
+    call Card.isJoker 1
+    not
+    if-goto Card_15
+    push constant 0
+    return
+    goto Card_14
+label Card_15
+label Card_14
+    push constant 1
+    neg
+    return
+function Card.getSuit 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Card.getIsOpen 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    return
+function Card.setIsOpen 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 2
+    push constant 0
+    return
+function Card.draw 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    push constant 1
+    eq
+    not
+    if-goto Card_17
+    push pointer 0
+    push argument 1
+    call Card.drawFront 2
+    pop temp 0
+    goto Card_16
+label Card_17
+    push argument 1
+    call DrawingHelpers.drawCardBack 1
+    pop temp 0
+label Card_16
+    push constant 0
+    return
+function Card.drawFront 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call DrawingHelpers.drawCardBlank 1
+    pop temp 0
+    push argument 1
+    push constant 32
+    push constant 4
+    call Math.multiply 2
+    add
+    push this 0
+    call Card.drawRank 2
+    pop temp 0
+    push argument 1
+    push constant 32
+    push constant 28
+    call Math.multiply 2
+    add
+    push this 1
+    call Card.drawSuit 2
+    pop temp 0
+    push constant 0
+    return
+function Card.getWidthCol 0
+    push constant 2
+    return
+function Card.getWidthPx 0
+    push constant 32
+    return
+function Card.getHeightPx 0
+    push constant 51
+    return
+function Card.drawRank 0
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto Card_19
+    push argument 0
+    call DrawingHelpers.drawCardRank2 1
+    pop temp 0
+    goto Card_18
+label Card_19
+label Card_18
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Card_21
+    push argument 0
+    call DrawingHelpers.drawCardRank3 1
+    pop temp 0
+    goto Card_20
+label Card_21
+label Card_20
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto Card_23
+    push argument 0
+    call DrawingHelpers.drawCardRank4 1
+    pop temp 0
+    goto Card_22
+label Card_23
+label Card_22
+    push argument 1
+    push constant 5
+    eq
+    not
+    if-goto Card_25
+    push argument 0
+    call DrawingHelpers.drawCardRank5 1
+    pop temp 0
+    goto Card_24
+label Card_25
+label Card_24
+    push argument 1
+    push constant 6
+    eq
+    not
+    if-goto Card_27
+    push argument 0
+    call DrawingHelpers.drawCardRank6 1
+    pop temp 0
+    goto Card_26
+label Card_27
+label Card_26
+    push argument 1
+    push constant 7
+    eq
+    not
+    if-goto Card_29
+    push argument 0
+    call DrawingHelpers.drawCardRank7 1
+    pop temp 0
+    goto Card_28
+label Card_29
+label Card_28
+    push argument 1
+    push constant 8
+    eq
+    not
+    if-goto Card_31
+    push argument 0
+    call DrawingHelpers.drawCardRank8 1
+    pop temp 0
+    goto Card_30
+label Card_31
+label Card_30
+    push argument 1
+    push constant 9
+    eq
+    not
+    if-goto Card_33
+    push argument 0
+    call DrawingHelpers.drawCardRank9 1
+    pop temp 0
+    goto Card_32
+label Card_33
+label Card_32
+    push argument 1
+    push constant 10
+    eq
+    not
+    if-goto Card_35
+    push argument 0
+    call DrawingHelpers.drawCardRank10 1
+    pop temp 0
+    goto Card_34
+label Card_35
+label Card_34
+    push argument 1
+    push constant 11
+    eq
+    not
+    if-goto Card_37
+    push argument 0
+    call DrawingHelpers.drawCardRankJoker 1
+    pop temp 0
+    goto Card_36
+label Card_37
+label Card_36
+    push argument 1
+    push constant 12
+    eq
+    not
+    if-goto Card_39
+    push argument 0
+    call DrawingHelpers.drawCardRankQueen 1
+    pop temp 0
+    goto Card_38
+label Card_39
+label Card_38
+    push argument 1
+    push constant 13
+    eq
+    not
+    if-goto Card_41
+    push argument 0
+    call DrawingHelpers.drawCardRankKing 1
+    pop temp 0
+    goto Card_40
+label Card_41
+label Card_40
+    push argument 1
+    push constant 14
+    eq
+    not
+    if-goto Card_43
+    push argument 0
+    call DrawingHelpers.drawCardRankAce 1
+    pop temp 0
+    goto Card_42
+label Card_43
+label Card_42
+    push constant 0
+    return
+function Card.drawSuit 0
+    push argument 1
+    push constant 0
+    eq
+    not
+    if-goto Card_45
+    push argument 0
+    call DrawingHelpers.drawCardClubsSuit 1
+    pop temp 0
+    goto Card_44
+label Card_45
+label Card_44
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto Card_47
+    push argument 0
+    call DrawingHelpers.drawCardHeartsSuit 1
+    pop temp 0
+    goto Card_46
+label Card_47
+label Card_46
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto Card_49
+    push argument 0
+    call DrawingHelpers.drawCardSpadesSuit 1
+    pop temp 0
+    goto Card_48
+label Card_49
+label Card_48
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Card_51
+    push argument 0
+    call DrawingHelpers.drawCardDiamondSuit 1
+    pop temp 0
+    goto Card_50
+label Card_51
+label Card_50
+    push constant 0
+    return
+function Card.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

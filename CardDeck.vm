@@ -1,0 +1,205 @@
+function CardDeck.new 3
+    push constant 2
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 52
+    call Array.new 1
+    pop this 0
+    push constant 0
+    pop local 0
+label CardDeck_0
+    push local 2
+    push constant 4
+    lt
+    not
+    if-goto CardDeck_1
+    push constant 2
+    pop local 1
+label CardDeck_2
+    push local 1
+    push constant 15
+    lt
+    not
+    if-goto CardDeck_3
+    push local 0
+    push this 0
+    add
+    push local 1
+    push local 2
+    call Card.new 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    goto CardDeck_2
+label CardDeck_3
+    push local 2
+    push constant 1
+    add
+    pop local 2
+    goto CardDeck_0
+label CardDeck_1
+    push pointer 0
+    return
+function CardDeck.getNext 1
+    push argument 0
+    pop pointer 0
+    push this 1
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 0
+    push this 1
+    push constant 1
+    add
+    pop this 1
+    push argument 1
+    not
+    if-goto CardDeck_5
+    push local 0
+    push constant 1
+    call Card.setIsOpen 2
+    pop temp 0
+    goto CardDeck_4
+label CardDeck_5
+    push local 0
+    push constant 0
+    call Card.setIsOpen 2
+    pop temp 0
+label CardDeck_4
+    push local 0
+    return
+function CardDeck.reset 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label CardDeck_6
+    push local 0
+    push constant 52
+    lt
+    not
+    if-goto CardDeck_7
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 1
+    push constant 0
+    call Card.setIsOpen 2
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto CardDeck_6
+label CardDeck_7
+    push constant 0
+    pop this 1
+    push constant 0
+    return
+function CardDeck.hasNext 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    push constant 52
+    lt
+    return
+function CardDeck.shuffle 4
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call Random.new 1
+    pop local 2
+    push constant 0
+    pop local 0
+label CardDeck_8
+    push local 0
+    push constant 52
+    lt
+    not
+    if-goto CardDeck_9
+    push local 2
+    push constant 0
+    push constant 52
+    call Random.randRange 3
+    pop local 1
+    push local 1
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 3
+    push local 1
+    push this 0
+    add
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push this 0
+    add
+    push local 3
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto CardDeck_8
+label CardDeck_9
+    push constant 0
+    return
+function CardDeck.dispose 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label CardDeck_10
+    push local 0
+    push constant 52
+    lt
+    not
+    if-goto CardDeck_11
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 1
+    call Card.dispose 1
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto CardDeck_10
+label CardDeck_11
+    push this 0
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
